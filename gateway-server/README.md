@@ -106,6 +106,11 @@ In case header format is valid, we will use Auth Server to validate that token.
 After that, we will aply that filter to the routing method we were using.
 
 ```
+@Autowired
+ private AuthFilter authFilter;
+
+...
+
 @Bean
 @ConditionalOnProperty(prefix = "gateway", name = "route", havingValue = "circuit-routing")
 RouteLocator dynamicRoutingCB(RouteLocatorBuilder builder) {
@@ -116,10 +121,10 @@ RouteLocator dynamicRoutingCB(RouteLocatorBuilder builder) {
 			.filters(f -> f.circuitBreaker(c -> c.setName("failoverCB")
 				.setFallbackUri("forward:/library-failover/")
 				.setRouteId("libraryFailover"))
-			    **.filter(authFilter)**))
+			    .filter(authFilter)))
 			.uri("lb://library"))
 		.route("library_failover_route", r -> r.path("/library-failover/**")
-			**.filters(f -> f.filter(authFilter)**)
+			.filters(f -> f.filter(authFilter))
 			.uri("lb://library-failover"))
 		.build();
 }
