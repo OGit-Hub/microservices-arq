@@ -1,6 +1,5 @@
-# microservices-arq
-Microservices Arquitecture
-In this proyect we will find multiple proyects applications from a microservices arquitecture.
+# Microservices Arquitecture
+In this repository we will find multiple proyects from a microservices arquitecture which i considere them to be among bases.
 
 ### Eureka Server
 A server which will tell us where our microservice are allocated so we dont need to know to reference them
