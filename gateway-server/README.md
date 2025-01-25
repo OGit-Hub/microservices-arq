@@ -65,5 +65,70 @@ RouteLocator dynamicRoutingCB(RouteLocatorBuilder builder) {
 }
 ```
 
+### Gateway filter - Authentication
+To be able to force authentication in requests made to our gateway server, we will be aplying a filter (like the ones we see before in routing to set a fallback service) to everyone of them. First, we need to configure that filter using reactive programming with Spring Webflux.
+
+```
+	public static final String AUTH_HEADER = "Authorization";
+	
+	@Autowired
+	private WebClient.Builder webClient;
+	
+	@Override
+	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+		// TODO Auto-generated method stub
+		if(!exchange.getRequest().getHeaders().containsKey(AUTH_HEADER)) {
+			return onError(exchange, HttpStatus.BAD_REQUEST);
+		}
+		
+		String tokenHeader = exchange.getRequest().getHeaders().get(AUTH_HEADER).get(0);
+		String authChunks[] = tokenHeader.split(" ");
+		
+		if(authChunks.length != 2 || !authChunks[0].equals("Bearer")) {
+			return onError(exchange, HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		return webClient.build()
+				.post()
+				.uri("http://auth-server/auth/validate?token=" + authChunks[1])
+				.retrieve()
+				.bodyToMono(TokenDto.class)
+				.map(m -> {
+					return exchange;
+				})
+				.flatMap(chain::filter);
+	}
+```
+In a @Component class we create a class that implements **GatewayFilter** and override the metod **filter**. What we are doing is checking if request headers has 'Auhtorization' header with the format 'Beared {token}'. 
+In case header format is valid, we will use Auth Server to validate that token.
+
+After that, we will aply that filter to the routing method we were using.
+
+```
+@Autowired
+ private AuthFilter authFilter;
+
+...
+
+@Bean
+@ConditionalOnProperty(prefix = "gateway", name = "route", havingValue = "circuit-routing")
+RouteLocator dynamicRoutingCB(RouteLocatorBuilder builder) {
+	log.info("Dynamic routing (Circuit Breaking) configuration [UP]");
+	
+	return builder.routes()
+		.route("library_app_name", r -> r.path("/library/**")
+			.filters(f -> f.circuitBreaker(c -> c.setName("failoverCB")
+				.setFallbackUri("forward:/library-failover/")
+				.setRouteId("libraryFailover"))
+			    .filter(authFilter)))
+			.uri("lb://library"))
+		.route("library_failover_route", r -> r.path("/library-failover/**")
+			.filters(f -> f.filter(authFilter))
+			.uri("lb://library-failover"))
+		.build();
+}
+```
+
 
 
