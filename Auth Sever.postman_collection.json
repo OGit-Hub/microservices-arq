@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "a955f005-6cb7-459f-8639-dff509de4a57",
+		"name": "Auth Sever",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41543428"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8084/auth/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"username\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/auth/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"auth",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8084/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"username\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8084/auth/validate?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlkIjoxLCJjb21wYW55LW5hbWUiOiJhcnEiLCJpYXQiOjE3Mzc4MTk0NDEsImV4cCI6MTczNzgyMTI0MX0.nNVNgU-kucskyLzpgT_Nk58rrqG1q4mDd-WGi6NppB0",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"username\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/auth/validate?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlkIjoxLCJjb21wYW55LW5hbWUiOiJhcnEiLCJpYXQiOjE3Mzc4MTk0NDEsImV4cCI6MTczNzgyMTI0MX0.nNVNgU-kucskyLzpgT_Nk58rrqG1q4mDd-WGi6NppB0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"auth",
+						"validate"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlkIjoxLCJjb21wYW55LW5hbWUiOiJhcnEiLCJpYXQiOjE3Mzc4MTk0NDEsImV4cCI6MTczNzgyMTI0MX0.nNVNgU-kucskyLzpgT_Nk58rrqG1q4mDd-WGi6NppB0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

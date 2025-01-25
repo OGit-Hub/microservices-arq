@@ -3,5 +3,5 @@ COPY . .
 RUN mvn clean package -Dcurrent.version=1.0.0 -DskipTests
 FROM openjdk:17-jdk
 COPY --from=build target/*.jar gateway-server.jar
-EXPOSE 8084
+EXPOSE 9090
 ENTRYPOINT ["java","-jar","-Dspring.profiles.active=dev","/gateway-server.jar"]

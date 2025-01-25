@@ -1,0 +1,102 @@
+version: "1.0"
+services:
+    postgresql:
+        image: postgres 
+        ports:
+            - "5432:5432" 
+        environment:
+            POSTGRES_DB: library
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U admin -d library"]
+            interval: 10s
+            retries: 5
+            start_period: 30s
+            timeout: 10s
+    config-server:
+        build: config-server
+        ports:
+            - "8888/tcp"
+        depends_on: 
+            postgresql:
+                condition: service_healthy
+                restart: true
+        healthcheck:
+            test: ["CMD", "curl", "-I", "http://config-server:8888"]
+            interval: 5s
+            timeout: 5s
+            retries: 10
+    eureka-server:
+        build: eureka-server
+        ports:
+            - "8761:8761"
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://eureka-server:8761"]
+            interval: 5s
+            timeout: 3s
+            retries: 10
+        depends_on: 
+            postgresql:
+                condition: service_healthy
+                restart: true
+    auth-server:
+        build: auth-server
+        ports:
+            - "8084:8084"
+        depends_on: 
+            eureka-server:
+                condition: service_healthy
+            config-server:
+                condition: service_healthy
+        links:
+            - config-server
+            - eureka-server
+            - postgresql
+    library-ms:
+        build: library-ms
+        ports:
+            - "8080:8080"
+        depends_on: 
+            eureka-server:
+                condition: service_healthy
+            config-server:
+                condition: service_healthy
+        links:
+            - config-server
+            - eureka-server
+            - postgresql
+    client-ms:
+        build: client-ms
+        ports:
+            - "8081:8081"
+        depends_on: 
+            eureka-server:
+                condition: service_healthy
+            config-server:
+                condition: service_healthy
+        links:
+            - config-server
+            - eureka-server
+            - postgresql
+    gateway-server:
+        build: gateway-server
+        ports:
+            - "9090:9090"
+        depends_on: 
+            eureka-server:
+                condition: service_healthy
+            config-server:
+                condition: service_healthy
+        links:
+            - config-server
+            - eureka-server
+            - postgresql
+            
+
+
+                 
+             
+
+    
+    

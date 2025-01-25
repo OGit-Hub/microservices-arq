@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "c3b39ee3-94c2-418a-81eb-b5dd0b3d1031",
+		"name": "Gateway Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41543428"
+	},
+	"item": [
+		{
+			"name": "http://localhost:9090/client/consultLibrary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlkIjoxLCJjb21wYW55LW5hbWUiOiJhcnEiLCJpYXQiOjE3Mzc4MjAwMzYsImV4cCI6MTczNzgyMTgzNn0.5cFZ2HYR5dtF_mVLDaLlKec0A58rJZKbaTXq_ximF3M",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 1,\r\n        \"title\": \"Tender Is the Night\",\r\n        \"author\": \"Tamika Effertz\",\r\n        \"clientId\": 0,\r\n        \"rented\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/client/consultLibrary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"client",
+						"consultLibrary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9090/client/rentBook",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlkIjoxLCJjb21wYW55LW5hbWUiOiJhcnEiLCJpYXQiOjE3Mzc4MjAwMzYsImV4cCI6MTczNzgyMTgzNn0.5cFZ2HYR5dtF_mVLDaLlKec0A58rJZKbaTXq_ximF3M",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 2,\r\n        \"title\": \"The Line of Beauty\",\r\n        \"author\": \"Martine Hirthe\",\r\n        \"clientId\": 0,\r\n        \"rented\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/client/rentBook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"client",
+						"rentBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9090/client/returnBook",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlkIjoxLCJjb21wYW55LW5hbWUiOiJhcnEiLCJpYXQiOjE3Mzc4MjAwMzYsImV4cCI6MTczNzgyMTgzNn0.5cFZ2HYR5dtF_mVLDaLlKec0A58rJZKbaTXq_ximF3M",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 2,\r\n        \"title\": \"The Line of Beauty\",\r\n        \"author\": \"Martine Hirthe\",\r\n        \"clientId\": 0,\r\n        \"rented\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9090/client/returnBook",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"client",
+						"returnBook"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9090/library/search?title=asd",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlkIjoxLCJjb21wYW55LW5hbWUiOiJhcnEiLCJpYXQiOjE3Mzc4MjExOTIsImV4cCI6MTczNzgyMjk5Mn0.Spu-vArO1dD1XIMY5Jbm6t2qjJyx7-MOshQ_SglxUzg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9090/library/search?title=asd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"library",
+						"search"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "asd"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
